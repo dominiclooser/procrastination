@@ -1,0 +1,26 @@
+- title = local.title ? local.title : global.settings.title
+- description = local.description ? local.description : global.settings.description
+ 
+doctype html
+html(lang=global.settings.lang)
+   head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      title= title   
+      meta(name='description', content=description)
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      meta(property='og:image', content=global.settings.og_image)
+
+      link(rel='icon', href='/images/favicon.png', sizes='32x32')
+      link(rel='stylesheet', href='/styles/styles.css')
+      link(rel='preconnect', href='https://fonts.googleapis.com')
+      link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+      link(rel='stylesheet', href='https://fonts.googleapis.com/css2?' + global.settings.google_fonts)
+      include /styles
+      include /early_scripts
+
+   body(id=path)
+      block content
+      block scripts
+         include /late_scripts
+         

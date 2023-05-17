@@ -1,0 +1,47 @@
+include /wikidata
+
+mixin label(input, lang=global.settings.lang)
+   if typeof input == 'string'
+      if input.startsWith('Q')
+         wd-entity(entity-id=input, label, lang=lang)
+         scripts(src='/scripts/webcomponents-bundle.js')
+         script(src='/scripts/wd-elements.umd.js')
+      else
+         = input
+   else if input.label
+      = input.label
+   else if input.title
+      = input.title
+   else if input.wikidataId
+      wd-entity(entity-id=input.wikidataId, label, lang=lang)
+      scripts(src='/scripts/webcomponents-bundle.js')
+      script(src='/scripts/wd-elements.umd.js')
+   
+   
+
+mixin translate(input, lang, markdown=false)
+   if typeof input == 'string'
+      - output = input
+   else if lang in input
+      - output = input[lang]
+   else if global.settings.main_lang in input
+      - output = input[global.settings.main_lang]
+   else
+      - output = ''
+   if markdown
+      != marked(output)
+   else
+      = output
+
+mixin linkList(items, infobox=false)
+   if Array.isArray(items) && items.length > 0
+      ul.default-list
+         for item in items
+            li
+               if item.url
+                  a(href=item.url)
+                     +label(item)
+               else if infobox
+                  +infoboxButton(item) 
+               else
+                  +label(item)

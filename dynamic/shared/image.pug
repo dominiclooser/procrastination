@@ -1,0 +1,27 @@
+mixin image(imageId, size)
+   if size
+      img(src=`/images/${size}/${imageId}`)
+   else
+      img(src=`/images/${imageId}`)
+
+mixin responsiveImage(imageId)
+   - lPath = '/images/l/' + imageId
+   - mPath = '/images/m/' + imageId
+   - sPath = '/images/s/' + imageId
+   - srcset = `${lPath} 2000w, ${mPath} 1000w, ${sPath} 400w`
+   
+   img(src=mPath, srcset=srcset, class=attributes.class)
+
+
+
+mixin lightboxImage(imageId, lightboxGroup)
+   
+   - sPath = '/images/s/' + imageId
+   - mPath = '/images/m/' + imageId
+   - lPath = '/images/l/' + imageId
+   
+   if ! lightboxGroup
+      - lightboxGroup = imageId
+
+   a(href=lPath, data-lightbox=lightboxGroup, class=attributes.class)
+      img(src=mPath)

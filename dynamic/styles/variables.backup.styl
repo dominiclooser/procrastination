@@ -1,0 +1,94 @@
+/////////////////
+// breakpoints //
+/////////////////
+
+m = '(min-width: 500px)' 
+l = '(min-width: 1000px)' 
+large-text = l
+desktop-nav = l
+mobile-nav = '(max-width:1000px)'
+
+
+////////////////
+// typography //
+////////////////
+
+body-font = Georgia
+heading-font = Georgia
+heading-font-alt = Bison
+max-text-width = 33em
+heading-line-height = 0.9
+:root
+    --scale-factor: 1.2
+    --line-height: 1.25
+    --font-size: 16px
+    @media m
+        --font-size: 17px
+    @media l
+        --font-size: 19px
+    --m: var(--font-size)
+    --l: calc(var(--scale-factor) * var(--m))
+    --xl: calc(var(--scale-factor) * var(--l))
+    --xxl: calc(var(--scale-factor) * var(--xl))
+    --xxxl: calc(var(--scale-factor) * var(--xxl))
+    --xxxxl: calc(var(--scale-factor) * var(--xxxl))
+    --xxxxxl: calc(var(--scale-factor) * var(--xxxxl))
+    --xxxxxxl: calc(var(--scale-factor) * var(--xxxxxl))
+    --xxxxxxxl: calc(var(--scale-factor) * var(--xxxxxxl))
+    --s: calc(var(--m) / var(--scale-factor))
+    --xs: calc(var(--s) / var(--scale-factor))
+    --unit: calc(var(--line-height) * var(--font-size))
+    --two-units: calc(2*var(--unit))
+    --three-units: calc(3*var(--unit))
+    --four-units: calc(4*var(--unit))
+    --five-units: calc(5*var(--unit))
+    --six-units: calc(6*var(--unit))
+    --seven-units: calc(7*var(--unit))
+    --semi-unit: calc(0.5*var(--unit))
+    --quarter-unit: calc(0.5*var(--semi-unit))
+
+    --line-height-2: 1.7
+    --font-size-2: 19px
+    @media large-text
+        --font-size-2: 22px
+    --unit-2: calc(var(--line-height-2) * var(--font-size-2))
+    --semi-unit-2: calc(0.5 * var(--unit-2))
+    --two-units-2: calc(2 * var(--unit-2))
+    --m-2: var(--font-size-2)
+    --l-2: calc(var(--scale-factor) * var(--m-2))
+    --xl-2: calc(var(--scale-factor) * var(--l-2))
+    --xxl-2: calc(var(--scale-factor) * var(--xl-2))
+    --xxxl-2: calc(var(--scale-factor) * var(--xxl-2))
+    --xxxxl-2: calc(var(--scale-factor) * var(--xxxl-2))
+
+
+////////////
+// colors //
+////////////
+
+:root
+    --primary: #f36a95
+    // --secondary
+    // --tertiary
+    --grey: hsl(0, 0, 70)
+    --bright: hsl(0, 0, 99)
+    --dark: hsl(0, 0, 20)
+
+    --text-color: var(--dark)
+    --heading-text-color: hsl(0, 0, 25)
+    --mobile-nav-background-color: var(--bright)
+    --secondary-background-color: hsl(0, 0, 95)
+    --list-border-color: var(--grey)
+    --link-color: var(--primary)
+
+
+//////////
+// misc //
+//////////
+
+:root
+    --max-page-width: 800px
+    --background: hsl(0, 0, 94)
+    --page-padding: var(--unit)
+    @media l
+        --page-padding: var(--four-units)

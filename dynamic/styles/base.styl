@@ -1,0 +1,90 @@
+article, aside, figcaption, figure
+footer, header, hgroup, main, nav, section
+    display: block
+
+audio, canvas, progress, video
+    display: inline-block
+    vertical-align: baseline
+
+audio:not([controls])
+    display: none
+    height: 0
+
+[hidden], template
+    display: none
+
+a
+    background-color: transparent
+    text-decoration: none
+    color: inherit
+    
+a:active, a:hover
+    outline: 0
+    
+button, select
+    text-transform: none
+
+body, h1, h2, h3, h4, p, ul, figure
+    margin: 0
+    padding: 0
+    
+p
+    -webkit-margin-before:0 
+    -webkit-margin-after:0
+    
+ul
+    -webkit-margin-before: 0
+    -webkit-margin-after: 0
+    -webkit-padding-start: 0
+    list-style: none
+
+h1, h2, h3, h4
+    font-size: inherit
+    font-weight: inherit
+
+*, *:before, *:after 
+    box-sizing: border-box
+
+img, video, iframe
+    max-width: 100%
+    max-height: 100%
+
+dd
+    margin-inline-start: 0
+
+canvas, img
+    vertical-align: middle
+  
+summary
+    cursor: pointer
+
+button
+    border: none
+    margin: 0
+    padding: 0
+    width: auto
+    overflow: visible
+    background: transparent
+    /* inherit font & color from ancestor */
+    color: inherit
+    font: inherit
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit
+    -moz-osx-font-smoothing: inherit
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none
+    outline: none;
+    &:hover
+        cursor: pointer
+
+body
+    background: var(--background)
+    min-height: 100vh
+    color: var(--text-color)
+    font-size: var(--m)
+    font-family: var(--body-font-family)
+    line-height: var(--body-line-height)
+    text-rendering: geometricPrecision
+    -moz-osx-font-smoothing: grayscale

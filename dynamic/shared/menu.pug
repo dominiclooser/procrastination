@@ -1,0 +1,124 @@
+mixin hamburger
+   style.
+      .hamburger {
+         cursor: pointer;
+         stroke-width: 6px;
+         width: var(--unit);
+         stroke: var(--text-color)
+      }
+ 
+   svg.hamburger(viewBox='0 0 100 54')
+      line(x1=0, y1=10, x2=100, y2=10)
+      line(x1=0, y1=30, x2=100, y2=30)
+      line(x1=0, y1=50, x2=100, y2=50)
+      
+
+mixin logo
+   a(href='/').logo= global.settings.title
+
+mixin pageHeader(logo)
+
+   style.
+      .mobile-page-header {
+         display: flex;
+         justify-content: space-between;
+         padding: var(--semi-unit) var(--page-padding);
+      }
+      .desktop-page-header {
+         padding: var(--semi-unit) var(--page-padding);
+         display: none;
+      }
+
+      .close, .open-menu{
+         cursor: pointer
+      }
+      .close {
+         stroke: var(--text-color);
+         stroke-width: 10px;
+         height: var(--unit);
+      }
+      .mobile-nav-wrapper {
+         display: none;
+         justify-content: center;
+         position: fixed;
+         top: 0;
+         left: 0;
+         height: 100vh;
+         width: 100vw;
+         padding: var(--unit);
+         background: var(--mobile-nav-background);
+      }
+      .mobile-nav {
+         margin-top: var(--unit);
+         display: flex;
+         justify-content: space-between;
+         width: 500px;
+      }
+      
+      //- @media (max-width: 500px) {
+      //-    .mobile-nav {
+      //-       width: 100%   
+      //-    }
+      //- }
+      //- @media (min-width: 500px) {
+      //-    .mobile-nav {
+      //-       width: 500px  
+      //-    }
+      //- }
+
+
+         
+   header.desktop-page-header
+      if logo
+         +logo
+      nav.desktop-nav
+         ul.desktop-nav-list
+            for entry in global.menu.entries
+               if entry.path != '/' 
+                  li: a(href=entry.path)= entry.title
+      
+   header.mobile-page-header
+      if logo
+         +logo
+      else
+         p &nbsp;  
+      .open-menu
+         if global.settings.open_menu_button_text
+            =global.settings.open_menu_button_text
+         else
+            +hamburger
+
+   .mobile-nav-wrapper
+      nav.mobile-nav
+         ul.mobile-nav-list
+            for entry in global.menu.entries
+               li.nav-group
+                  a.nav-item(href=entry.path)= entry.title
+                  if entry.subentries
+                     ul.sub-nav
+                        for subentry in entry.subentries
+                           li.nav-item: a(href=subentry.path)= subentry.title
+         .close-wrapper
+            svg.close(viewBox='0 0 100 100')
+               line(x1=0, y1=0, x2=100, y2=100)
+               line(x1=0, y1=100, x2=100, y2=0) 
+
+   script
+      :coffee-script
+         close = document.querySelector('.close')
+         mobileNavWrapper = document.querySelector('.mobile-nav-wrapper')
+         openMenu = document.querySelector('.open-menu')
+         
+         openMenu.addEventListener 'click', ->
+            mobileNavWrapper.style.display = 'flex'
+
+         close.addEventListener 'click', ->
+            mobileNavWrapper.style.display = 'none'
+
+
+//- nav.desktop-subnav
+      //-    if current.path[0] in nav 
+      //-       if 'subnav' in nav[current.path[0]]
+      //-          ul
+      //-             for item in nav[current.path[0]].subnav
+      //-                li: a(href=item.link)= item.title

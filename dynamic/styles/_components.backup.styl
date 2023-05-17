@@ -1,0 +1,138 @@
+////////////
+// layout //
+////////////
+
+.wrapper
+    margin: 0 auto
+    padding-left: var(--page-padding)
+    padding-right: @padding-left
+    max-width: max-page-width
+
+.text-wrapper
+    max-width: max-text-width
+
+.grid
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(min-column-width, 1fr))
+    grid-column-gap: var(--unit)
+    grid-row-gap: var(--unit)
+
+.card
+    padding: var(--unit) var(--semi-unit)
+  
+.card-section + .card-section
+    margin-top: var(--unit)
+
+.card-title
+    margin-bottom: var(--semi-unit)
+
+.text-plus
+    @media text-plus
+        display: flex
+
+.text-plus-text
+    margin: var(--unit) 0 0 0
+    @media text-plus
+        margin: 0 var(--gutter) 0 0
+
+.text-plus-plus
+    align-self: left
+
+.plus-text
+    @media text-plus
+        display: flex
+
+.plus-text-text
+    margin: var(--unit) 0 0 0
+    @media text-plus
+        margin: 0 0 0 var(--gutter)
+
+.plus-text-plus
+    align-self: left
+
+
+//////////
+// text // 
+//////////
+
+.spaced-paragraphs
+    p+p
+        margin-top: var(--semi-unit) 
+
+.indented-paragraphs
+    p+p
+        text-indent: var(--unit)
+
+.colored-links
+    a
+        color: link-color
+        &:hover
+            text-decoration: underline
+
+.underline-on-hover
+    &:hover
+        text-decoration: underline
+
+
+///////////
+// lists //
+///////////
+
+.arrow-list
+    list-style: none
+    li
+        display: flex
+    li:before
+        content: '\2192 \a0'        
+
+stacked-list(spacing = var(--semi-unit), border = 1px dotted dark)
+    list-style: none
+    padding: 0
+    li  
+        padding: spacing 0 
+        border-bottom: border
+        &:first-child
+            border-top: border
+
+separated-list(separator = '', spacing-left = 0.5em, spacing-right = 0.5em)
+    list-style: none
+    margin: 0
+    li 
+        display: inline
+    li:not(:last-child)
+        ::after
+            margin-left: spacing-left
+            margin-right: spacing-right
+            content: separator
+    li:not(:first-child)
+        margin-left: spacing
+
+highlight-list(background = dark, color = white)
+    li:hover
+        background: background
+        color: color
+        cursor: pointer
+    a:hover
+        color: inherit
+    a
+        text-decoration: none
+
+.definition-list
+    dt
+        display: inline
+        font-weight: bold
+        &::after
+            content: ':'
+
+    dd
+        display: inline
+        margin-left:var(--unit) 
+        width: 100%
+        &::after
+            content: '\A'
+            white-space: pre
+
+//////////
+// misc //
+//////////
+

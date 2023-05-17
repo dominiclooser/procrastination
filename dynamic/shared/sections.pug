@@ -1,0 +1,134 @@
+include /commons
+
+mixin section(title)
+   if block
+      section.s1(class=attributes.class)
+         if title
+            header.s1-header
+               h2.h2
+                  +label(title)
+         .s1-main
+            block
+
+mixin subsection(title)
+   section.s2(class=attributes.class)
+      header.s2-header
+         h3.h3
+            +label(title)
+      .s2-main
+         block
+
+
+//-------
+//- video
+//-------
+
+
+
+mixin videoSection(videos, title)
+   if Array.isArray(videos) && videos.length > 0
+      +section(title)
+         .video-grid
+            for video in videos
+               .video
+                  .video-wrapper
+                     +videoIframe(video)
+                  h3.video-title= video.title
+                  p= video.description
+
+mixin videoSubsection(data, title)
+   if Array.isArray(data) && data.length > 0
+      +subsection(title)
+         .video-grid
+            for item in data
+               .video
+                  .video-wrapper
+                     +videoIframe(item)
+                  h3.video-title= item.title
+                  p= item.description
+
+
+mixin textSection(title, data)
+   +section(title)
+      != marked(data)
+
+mixin dlSection(title, data, lang=global.settings.lang)
+   if data
+      +section(title)
+         dl.dl
+            for definition, term in data
+               dt
+                  +infoboxButton(term, lang=lang)
+               dd 
+                  +infoboxButton(definition, lang=lang)
+
+mixin listSection(data, title, type)
+   if data && Array.isArray(data) && data.length
+      +section(title)
+         ul.default-list
+            for item in data
+               li
+                  if type == 'infobox'
+                     +infoboxButton(item)
+                  else
+                     +label(item)
+
+mixin infoboxListSection(data, title)
+   if data && Array.isArray(data) && data.length
+      +section(title)
+         ul.default-list
+            for item in data
+               li
+                  +infoboxButton(item)
+
+mixin linkListSection(items, title)
+   if items && Array.isArray(items) && items.length
+      +section(title)
+         ul.default-list
+            for item in items
+               li
+                  if item.url
+                     a(href=item.url)
+                        +label(item)
+                  else
+                     +label(item)
+
+
+mixin flatSection(title, data, props=[])
+   if data
+      +section(title)
+         dl.dl
+            for prop in props
+               if data[prop.key]
+                  dt= prop.label
+                  dd
+                     if Array.isArray(data[prop.key])
+                        ul.default-list
+                           for item in data[prop.key]
+                              li 
+                                 +infoboxButton(item)
+                     else
+                        +infoboxButton(data[prop.key])
+
+mixin quoteSubsection(quotes, title)
+   if Array.isArray(quotes) && quotes.length
+      +subsection(title)
+         ul.quotes
+            for quote in quotes
+               li
+                  blockquote= quote.content
+                  
+mixin listSubsection(data, title)
+   if data
+      +subsection(title)
+         ul.default-list
+            for item in data
+               li
+                  +infoboxButton(item)
+
+mixin imageSubsection(title, dir)
+   if containsImages(dir)
+      +subsection(title)
+         .image-columns
+            for fileId in getImages(dir)
+               +lightboxImage(fileId, lightboxGroup='inspirational_images')

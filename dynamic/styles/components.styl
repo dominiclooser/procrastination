@@ -1,0 +1,297 @@
+////////////
+// layout //
+////////////
+
+.fullscreen
+    position: absolute
+    height: 100vh
+    height: calc(var(--vh, 1vh) * 100)
+    width: 100vw
+    z-index: 2
+    top: 0
+    left: 0
+
+.center-wrapper
+    margin: 0 auto
+    padding-left: var(--page-padding)
+    padding-right: @padding-left
+    max-width: var(--max-page-width)
+
+.fullwidth-wrapper
+    padding: 0 var(--page-padding)
+
+.text-wrapper
+    max-width: var(--max-text-width)
+
+grid(min-column-width = 200px, gap = var(--unit))
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(min-column-width, 1fr))
+    gap: gap
+
+// striped-grid(color=var(--secondary-background-color, gap=var(--unit)))
+//     display: grid
+//     grid-template-columns: repeat(auto-fill, minmax(min-column-width, 1fr))
+//     column-gap: gap
+//     & > *:nth-child(2n+1)
+//         background: color
+
+.grid
+    grid()
+
+.textplus
+    @media textplus
+        display: flex
+
+.textplus-text
+    flex-basis: 50%
+    max-width: var(--max-text-width)
+    @media textplus
+        margin-right: var(--unit)
+
+.textplus-plus
+    flex-basis: 50%
+    margin-top: var(--unit)
+    align-self: left
+    @media textplus
+        margin: 0
+
+.plustext
+    @media textplus
+        display: flex
+
+.plustext-text
+    max-width: var(--max-text-width)
+    margin: var(--unit) 0 0 0
+    @media textplus
+        margin: 0 0 0 var(--unit)
+
+.plustext-plus
+    align-self: left
+
+.columns
+    columns: 300px
+    *
+        break-inside: avoid
+
+.image-columns
+    columns: 200px
+    column-gap: var(--semi-unit)
+    *
+        margin-bottom: var(--semi-unit)
+    
+
+//////////
+// text // 
+//////////
+
+text(hyphens=auto)
+    max-width: var(--max-text-width)
+    hyphens: hyphens
+
+.spaced-paragraphs 
+    p+p
+        margin-top: var(--semi-unit) 
+
+.indented-paragraphs 
+    p+p
+        text-indent: var(--unit)
+
+
+///////////
+// links //
+///////////
+
+.rainbow
+    display: inline-block
+    position: relative
+    text-decoration: none
+    color: inherit
+    z-index: 1
+
+    &::after 
+        content: ''
+        position: absolute
+        left: 0
+        bottom: .07em
+        height: .1em
+        width: 100%
+        background: linear-gradient(110deg, #e1f549, #29d0be, #6cb8ea, #ff5959)
+        z-index: -1
+        transition: height .25s cubic-bezier(.6,0,.4,1)
+
+    &:hover::after 
+        height: .2em
+
+.rainbow-links 
+    a
+        @extends .rainbow
+
+.fancy
+    position: relative
+    &::after
+        content: ''
+        position: absolute
+        background: var(--primary)
+        left: 0
+        bottom: 0
+        z-index: 1
+        width: 100%
+        height: 1px
+        box-shadow: 0px 0px 3px var(--primary)
+
+.fancy-links
+    a
+        @extends .fancy
+
+.arrow
+    &::before
+        content: '\2192'
+        margin-right: 0.15em
+        display: inline-block
+        
+.arrow-links
+    a
+        @extends .arrow
+
+.colored
+    color: var(--link-color)
+    &:hover
+        color: var(--link-color)
+
+.colored-links 
+    a
+        @extends .colored
+
+.underlined
+    text-decoration: underline
+
+.underlined-links 
+    a
+        @extends .underlined
+
+.underlined-on-hover
+    &:hover
+        text-decoration: underline
+
+.underlined-on-hover-links 
+    a
+        @extends .underlined-on-hover
+
+.colored-on-hover
+    &:hover
+        color: var(--link-color)
+
+.colored-on-hover-links 
+    a
+        @extends .colored-on-hover
+
+.fancy-on-hover
+    &:hover
+        @extends .fancy
+
+.fancy-on-hover-links
+    a
+        @extends .fancy-on-hover
+
+.bold-on-hover
+    &:hover
+        font-weight: bold
+
+
+///////////
+// lists //
+///////////
+
+.default-list
+    padding-left: 0.8em
+    list-style-type: '– '
+    list-style-position: outside
+
+    li + li
+        margin-top: var(--semi-unit)
+
+.arrow-list
+    list-style: none
+    li
+        display: flex
+    li:before
+        content: '\2192 \a0'        
+
+vlist(padding=var(--semi-unit), margin=0px, border=1px solid var(--list-border-color))
+    list-style: none
+    padding: 0
+    & > li  
+        padding: padding 0 
+        border-bottom: border
+        &:last-child
+            border-bottom: none
+    & > li + & > li
+        margin-top: margin
+
+hlist(sep = '', spacing-left = 0.5em, spacing-right = 0.5em)
+    list-style: none
+    margin: 0
+    li 
+        display: inline
+    li:not(:last-child)
+        &::after
+            margin-left: spacing-left
+            margin-right: spacing-right
+            content: sep
+    li:not(:first-child)
+        margin-left: spacing-left
+
+.comma-list
+    hlist(', ', 0, 0)
+
+highlight-list(background = var(--dark), color = white)
+    li:hover
+        background: background
+        color: color
+        cursor: pointer
+    a:hover
+        color: inherit
+    a
+        text-decoration: none
+
+striped-list(color=var(--secondary-background-color))
+    li
+        padding: var(--semi-unit)
+    li:nth-child(2n+1)
+        background-color: color
+
+dl(row-gap=0.2em, term-width=max-content, weight=bold)
+    display: grid
+    grid-template-columns: term-width auto
+    grid-row-gap: row-gap
+    grid-column-gap: 0.5em
+    dt  
+        font-weight: weight
+
+.dl
+    dl()
+
+.vdl
+    dt
+        font-weight: bolder
+    dt:not(:first-child)
+        margin-top: var(--semi-unit)
+
+
+//////////
+// misc //
+//////////
+
+.video-wrapper
+    position: relative
+    padding-bottom: 50% //56.25%
+    padding-top: 25px
+    height: 0
+    iframe
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+
+
